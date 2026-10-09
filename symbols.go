@@ -188,6 +188,20 @@ type UDT struct {
 
 func (s *UDT) Kind() SymbolKind { return SUDT }
 
+// Thunk is S_THUNK32: compiler-generated code with no procedure record of
+// its own, such as a this-adjusting thunk or an incremental-linking stub.
+type Thunk struct {
+	Name    string
+	Offset  uint32
+	Segment uint16
+	Length  uint16
+	// Ordinal is THUNK_ORDINAL: 0 plain, 1 this-adjustor, 2 virtual call,
+	// 3 p-code, 4 delay-load, 5 trampoline, 6 branch island.
+	Ordinal uint8
+}
+
+func (s *Thunk) Kind() SymbolKind { return SThunk32 }
+
 // ProcRef is S_PROCREF/S_LPROCREF: where a procedure's full record lives.
 type ProcRef struct {
 	K      SymbolKind
@@ -256,6 +270,11 @@ func decodeSymbol(k SymbolKind, r []byte) Symbol {
 		if len(r) >= 4 {
 			return &UDT{Type: TypeIndex(le.Uint32(r)), Name: cString(r[4:])}
 		}
+	case SThunk32:
+		if len(r) >= 21 {
+			return &Thunk{Offset: le.Uint32(r[12:]), Segment: le.Uint16(r[16:]), Length: le.Uint16(r[18:]),
+				Ordinal: r[20], Name: cString(r[21:])}
+		}
 	case SProcRef, SLProcRef, SDataRef:
 		if len(r) >= 10 {
 			return &ProcRef{K: k, Offset: le.Uint32(r[4:]), Module: le.Uint16(r[8:]), Name: cString(r[10:])}
@@ -288,7 +307,7 @@ func (f *File) ModuleSymbols(m Module) ([]Symbol, error) {
 func moduleSymbols(b []byte, base int) []Symbol {
 	var out []Symbol
 	var cur *Procedure
-	depth, inline := 0, 0
+	depth, inline, thunkDepth := 0, 0, 0
 	walk(b, base, func(off int, k SymbolKind, rec []byte) {
 		switch k {
 		case SGProc32, SLProc32, SGProc32ID, SLProc32ID:
@@ -316,8 +335,18 @@ func moduleSymbols(b []byte, base int) []Symbol {
 		case SBlock32, SThunk32, SSepCode:
 			if cur != nil {
 				depth++
+			} else if k == SThunk32 {
+				// A top-level thunk is reported; its scope holds nothing
+				// of interest and closes with an S_END.
+				out = append(out, decodeSymbol(k, rec))
+				thunkDepth++
+				return
 			}
 		case SEnd, SProcIDEnd:
+			if cur == nil && thunkDepth > 0 {
+				thunkDepth--
+				return
+			}
 			if cur != nil {
 				depth--
 				if depth == 0 {

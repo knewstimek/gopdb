@@ -334,6 +334,25 @@ func TestGlobals(t *testing.T) {
 	}
 }
 
+func TestByName(t *testing.T) {
+	for _, fx := range fixtures {
+		tt, _ := openFixture(t, fx.arch).Types()
+		for _, n := range []string{"Node", "geo::Rect", "Value", "Color"} {
+			ti, ok := tt.ByName(n)
+			if !ok {
+				t.Errorf("%s: ByName(%s) not found", fx.arch, n)
+				continue
+			}
+			if tt.Resolve(ti) != ti {
+				t.Errorf("%s: ByName(%s) returned a forward declaration", fx.arch, n)
+			}
+		}
+		if _, ok := tt.ByName("NoSuchType"); ok {
+			t.Error("found NoSuchType")
+		}
+	}
+}
+
 func TestSimple(t *testing.T) {
 	st, ok := Simple(0x74)
 	if !ok || st.Name != "int" || st.Size != 4 || st.Class != SimpleSigned || st.PointerSize() != 0 {

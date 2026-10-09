@@ -1,0 +1,50 @@
+?loadTailoring@CollationLoader@icu_53@@SAPEBUCollationTailoring@2@AEBVLocale@2@AEAV42@AEAW4UErrorCode@@@Z	public: static struct icu_53::CollationTailoring const * __ptr64 __cdecl icu_53::CollationLoader::loadTailoring(class icu_53::Locale const & __ptr64,class icu_53::Locale & __ptr64,enum UErrorCode & __ptr64)
+??0?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QEAA@PEBD@Z	public: __cdecl std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >(char const * __ptr64) __ptr64
+??1?$vector@HV?$allocator@H@std@@@std@@QEAA@XZ	public: __cdecl std::vector<int,class std::allocator<int> >::~vector<int,class std::allocator<int> >(void) __ptr64
+?push_back@?$vector@HV?$allocator@H@std@@@std@@QEAAX$$QEAH@Z	public: void __cdecl std::vector<int,class std::allocator<int> >::push_back(int && __ptr64) __ptr64
+??4?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QEAAAEAV01@AEBV01@@Z	public: class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > & __ptr64 __cdecl std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >::operator=(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const & __ptr64) __ptr64
+??8std@@YA_NAEBVerror_code@0@0@Z	bool __cdecl std::operator==(class std::error_code const & __ptr64,class std::error_code const & __ptr64)
+??_7type_info@@6B@	const type_info::`vftable'
+??_Gtype_info@@UEAAPEAXI@Z	public: virtual void * __ptr64 __cdecl type_info::`scalar deleting destructor'(unsigned int) __ptr64
+??_R0?AVtype_info@@@8	class type_info `RTTI Type Descriptor'
+??_R4type_info@@6B@	const type_info::`RTTI Complete Object Locator'
+??_C@_05IHFHHGCP@hello@	`string'
+??2@YAPEAX_K@Z	void * __ptr64 __cdecl operator new(unsigned __int64)
+??3@YAXPEAX_K@Z	void __cdecl operator delete(void * __ptr64,unsigned __int64)
+?qsort@@YAXPEAX_K1P6AHPEBX2@Z@Z	void __cdecl qsort(void * __ptr64,unsigned __int64,unsigned __int64,int (__cdecl*)(void const * __ptr64,void const * __ptr64))
+?f@@YAXQAH@Z	void __cdecl f(int * const)
+?g@@YAXPAY02H@Z	void __cdecl g(int (*)[3])
+?h@@YAHHZZ	int __cdecl h(int,...)
+?x@ns@@3HA	int ns::x
+?p@@3PEAHEA	int * __ptr64 __ptr64 p
+?fp@@3P6AHH@ZA	int (__cdecl* fp)(int)
+?m@C@@QBEHXZ	public: int __thiscall C::m(void)const 
+?s@C@@SGHH@Z	public: static int __stdcall C::s(int)
+?v@C@@UAEXXZ	public: virtual void __thiscall C::v(void)
+?fc@@YIHHH@Z	int __fastcall fc(int,int)
+?vc@@YQXN@Z	void __vectorcall vc(double)
+??BC@@QBEHXZ	public: __thiscall C::operator int(void)const 
+?mp@@3P8C@@AEHXZA	int (__thiscall C::* mp)(void)
+?dm@@3PQC@@HQ1@	int C::* dm
+?e@@YAXW4Color@@@Z	void __cdecl e(enum Color)
+?u@@YAXTValue@@@Z	void __cdecl u(union Value)
+?anon@?A0x1234abcd@@YAXXZ	void __cdecl `anonymous namespace'::anon(void)
+??_7Rect@geo@@6B@	const geo::Rect::`vftable'
+?area@Rect@geo@@UBEHXZ	public: virtual int __thiscall geo::Rect::area(void)const 
+?area@Rect@geo@@UEBAHXZ	public: virtual int __cdecl geo::Rect::area(void)const __ptr64
+?count@Shape@geo@@2HA	public: static int geo::Shape::count
+?fast_call@@YAHHHH@Z	int __cdecl fast_call(int,int,int)
+?fast_call@@YIHHHH@Z	int __fastcall fast_call(int,int,int)
+?fatal@@YAXH@Z	void __cdecl fatal(int)
+?g_handle@@3IA	unsigned int g_handle
+?g_nodes@@3PAUNode@@A	struct Node * g_nodes
+?g_rect@@3PAVRect@geo@@A	class geo::Rect * g_rect
+?g_rect@@3PEAVRect@geo@@EA	class geo::Rect * __ptr64 __ptr64 g_rect
+?make_point@@YA?AUPoint@@HH@Z	struct Point __cdecl make_point(int,int)
+?scale@@YANNMH@Z	double __cdecl scale(double,float,int)
+?std_call@@YAHHH@Z	int __cdecl std_call(int,int)
+?std_call@@YGHHH@Z	int __stdcall std_call(int,int)
+?sum_points@@YAHPBUPoint@@H@Z	int __cdecl sum_points(struct Point const *,int)
+?sum_points@@YAHPEBUPoint@@H@Z	int __cdecl sum_points(struct Point const * __ptr64,int)
+?use_node@@YAHPAUNode@@W4Color@@@Z	int __cdecl use_node(struct Node *,enum Color)
+?use_node@@YAHPEAUNode@@W4Color@@@Z	int __cdecl use_node(struct Node * __ptr64,enum Color)

@@ -572,6 +572,20 @@ func (t *TypeTable) Resolve(ti TypeIndex) TypeIndex {
 	return ti
 }
 
+// ByName finds the definition (not a forward declaration) of the class,
+// structure, union or enumeration with the given qualified name.
+func (t *TypeTable) ByName(name string) (TypeIndex, bool) {
+	if t.defs == nil {
+		t.indexDefinitions()
+	}
+	for _, l := range []Leaf{LFClass, LFUnion, LFEnum} {
+		if ti, ok := t.defs[udtKey(l, name, "")]; ok {
+			return ti, true
+		}
+	}
+	return 0, false
+}
+
 func udtKey(l Leaf, name, unique string) string {
 	// Classes, structures and interfaces share one namespace.
 	switch l {
