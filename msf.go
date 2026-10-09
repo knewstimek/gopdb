@@ -168,15 +168,22 @@ func (f *File) readBlocks(blocks []uint32, size uint32) ([]byte, error) {
 		return nil, fmt.Errorf("pdb: stream of %d bytes exceeds the %d-byte limit", size, MaxStreamSize)
 	}
 	out := make([]byte, size)
-	for i, b := range blocks {
+	// Streams are mostly laid out in consecutive blocks: one read per run
+	// instead of per block (a large PDB has hundreds of thousands).
+	for i := 0; i < len(blocks); {
 		lo := uint32(i) * f.blockSize
 		if lo >= size {
 			break
 		}
-		hi := min(lo+f.blockSize, size)
-		if _, err := f.r.ReadAt(out[lo:hi], int64(b)*int64(f.blockSize)); err != nil && err != io.EOF {
+		j := i + 1
+		for j < len(blocks) && blocks[j] == blocks[j-1]+1 && uint32(j)*f.blockSize < size {
+			j++
+		}
+		hi := min(uint32(j)*f.blockSize, size)
+		if _, err := f.r.ReadAt(out[lo:hi], int64(blocks[i])*int64(f.blockSize)); err != nil && err != io.EOF {
 			return nil, err
 		}
+		i = j
 	}
 	return out, nil
 }
