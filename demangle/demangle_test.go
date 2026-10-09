@@ -18,7 +18,7 @@ func TestUndnameCases(t *testing.T) {
 	sc := bufio.NewScanner(f)
 	n := 0
 	for sc.Scan() {
-		mangled, want, _ := strings.Cut(sc.Text(), "\t")
+		mangled, want, _ := strings.Cut(strings.TrimRight(sc.Text(), "\r"), "\t")
 		n++
 		sym, err := Demangle(mangled)
 		if err != nil {
